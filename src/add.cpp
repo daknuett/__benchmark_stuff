@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <complex>
 #include <iostream>
 #include <chrono>
@@ -63,6 +64,10 @@ main(int argc, char ** argv)
         add(DATA_POINTER(v1), DATA_POINTER(v2), DATA_POINTER(res), L);
         auto stop = std::chrono::high_resolution_clock::now();
         auto elapsed = stop - start;
+        for(auto j = 0; j < L; j++)
+        {
+            assert(v1[j] + v2[j] == res[j]);
+        }
         results[i] = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed).count() / 1000.0 / 1000.0 / 1000.0;
     }
     std::cout << "Results:" << std::endl;
